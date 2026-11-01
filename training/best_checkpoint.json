@@ -1,0 +1,35 @@
+{
+  "path": "checkpoints/tichubot-best.pt",
+  "games_played": 36637696,
+  "promoted_at": "2026-11-01T13:59:47+00:00",
+  "rule": "paired mean advantage >= 2.0 standard errors over the previous best",
+  "evidence": {
+    "previous_best": "ring_runs/mmd/mmd_round_64.pt",
+    "mean_score_advantage": 26.00494384765625,
+    "standard_error": 0.806430401724507,
+    "z": 32.24697852666034,
+    "deal_pairs": 16384
+  },
+  "history": [
+    {
+      "path": "kaggle_runs/2026-08-01_110222_standard/tichubot_outputs/checkpoints/history_standard_gpu/latest.pt",
+      "promoted_at": "2026-08-01T00:00:00+00:00"
+    },
+    {
+      "path": "kaggle_runs/2026-08-21_221118_compact-scratch/tichubot_outputs/checkpoints/history_compact_scratch/latest.pt",
+      "promoted_at": "2026-10-14T22:30:55+00:00"
+    },
+    {
+      "path": "ring_runs/entropy/low_final.pt",
+      "promoted_at": "2026-10-22T10:12:18+00:00"
+    },
+    {
+      "path": "ring_runs/histnorm/ckpt_13500416.pt",
+      "promoted_at": "2026-10-25T14:31:00+00:00"
+    },
+    {
+      "path": "ring_runs/mmd/mmd_round_64.pt",
+      "promoted_at": "2026-10-29T08:47:08+00:00"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TichuBot visual table</title>
+    <link rel="stylesheet" href="/app.css?v=8">
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">LOCAL TICHUBOT</p>
+          <h1>Visual table</h1>
+        </div>
+        <div id="round-controls" class="round-controls"></div>
+      </header>
+
+      <section id="message" class="message" aria-live="polite"></section>
+      <section id="settings" class="settings hidden"></section>
+      <section id="setup" class="setup"></section>
+      <section id="table" class="table hidden"></section>
+      <section id="controls" class="controls hidden"></section>
+    </main>
+    <template id="card-template">
+      <button class="card" type="button"><span class="card-label"></span></button>
+    </template>
+    <script src="/app.js?v=11"></script>
+  </body>
+</html>

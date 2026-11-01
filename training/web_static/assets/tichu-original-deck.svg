@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Original Tichu-compatible deck sheet for the local TichuBot UI.
+  It deliberately uses no scans, logos, or publisher artwork.  The sheet is
+  arranged as 90×137px faces at x=10+98*column and y=7+143*row, which keeps
+  the existing responsive sprite renderer simple.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" width="1277" height="721" viewBox="0 0 1277 721">
+  <defs>
+    <style>
+      .edge { fill: #fbf8eb; stroke: #173b45; stroke-width: 1.2; }
+      .inner { fill: none; stroke: #d4ae5d; stroke-width: .8; }
+      .rank { font: 700 17px Georgia, serif; text-anchor: middle; }
+      .suitname { font: 700 5px Arial, sans-serif; text-anchor: middle; letter-spacing: 1.1px; }
+      .special-title { font: 700 9px Georgia, serif; text-anchor: middle; letter-spacing: .8px; }
+      .special-note { font: 600 4.2px Arial, sans-serif; text-anchor: middle; letter-spacing: .55px; }
+    </style>
+    <g id="base"><rect class="edge" x=".6" y=".6" width="88.8" height="135.8" rx="5.5"/><rect class="inner" x="4" y="4" width="82" height="129" rx="3"/><path d="M9 31h72M9 105h72" stroke="#d4ae5d" stroke-width=".55" opacity=".65"/></g>
+    <g id="jade"><ellipse cx="45" cy="69" rx="20" ry="28" fill="#228c70" stroke="#125443" stroke-width="1.5"/><path d="M32 63c8-10 18-10 26 0M32 75c8 10 18 10 26 0M45 43v52" fill="none" stroke="#dff3c9" stroke-width="1.35" opacity=".9"/></g>
+    <g id="pagoda"><path d="M26 82h38l-3-8h-7v-9h5l-9-9-9 9h5v9h-7zm6-8h26m-22-9h18m-13-9h8" fill="#5b7fbd" stroke="#263f70" stroke-width="1.3" stroke-linejoin="round"/><path d="M45 48v7M31 82h28" stroke="#263f70" stroke-width="1.3"/></g>
+    <g id="star"><polygon points="45,39 51,60 72,58 56,70 63,91 45,78 27,91 34,70 18,58 39,60" fill="#b54952" stroke="#70212c" stroke-width="1.5" stroke-linejoin="round"/><circle cx="45" cy="69" r="5" fill="#f8e39d"/></g>
+    <g id="sword"><path d="M45 42l6 10-3 25 9 10-4 4-10-9-2-30z" fill="#3d444b" stroke="#14191e" stroke-width="1.15"/><path d="M39 88l12-12M36 92l-3-3 7-7 3 3M52 86l5 5-3 3-7-7" fill="none" stroke="#8c949b" stroke-width="2" stroke-linecap="round"/></g>
+    <g id="mahjong"><rect x="24" y="42" width="42" height="52" rx="4" fill="#f7edd1" stroke="#af8f45" stroke-width="1.5"/><circle cx="45" cy="68" r="13" fill="none" stroke="#25816b" stroke-width="3"/><text x="45" y="75" fill="#b54842" font-family="Georgia,serif" font-size="23" font-weight="700" text-anchor="middle">1</text></g>
+    <g id="dog"><path d="M28 78c2-13 11-21 23-19l10-9 3 12c4 4 5 9 3 16l6 7-8 2-5-7H44l-4 8-7-1 2-10z" fill="#b77a45" stroke="#69401e" stroke-width="1.5" stroke-linejoin="round"/><circle cx="55" cy="65" r="1.8" fill="#17242c"/><path d="M61 75l7 2M38 77l-7 5" stroke="#69401e" stroke-width="2" stroke-linecap="round"/></g>
+    <g id="phoenix"><path d="M45 91c-12-9-14-22-5-37 0 12 4 14 8 4 9 14 5 25-3 33z" fill="#d45840" stroke="#7e2f2c" stroke-width="1.2"/><path d="M43 64C29 52 22 56 23 69c7-4 12-2 17 5M48 65c14-13 20-8 19 5-7-4-12-1-17 5" fill="#e9b547" stroke="#895c20" stroke-width="1.2"/><path d="M44 49l2-8 3 8" fill="none" stroke="#b13f36" stroke-width="2"/></g>
+    <g id="dragon"><path d="M25 78c1-20 19-30 34-19 11 8 6 23-6 23-6 0-10-4-9-8 2 3 6 3 8 0 2-5-6-9-12-5-8 6-3 20 8 25" fill="none" stroke="#3d8d73" stroke-width="5" stroke-linecap="round"/><path d="M56 59l8-8 3 6 8 1-6 5 2 7-8-2z" fill="#c35345" stroke="#762e2a" stroke-width="1.1"/><circle cx="66" cy="59" r="1.4" fill="#f9e898"/></g>
+  </defs>
+
+  <!-- Jade: 2 through Ace -->
+  <g transform="translate(10 7)"><use href="#base"/><use href="#jade"/><g fill="#176c56"><text class="rank" x="12" y="23">2</text><text class="rank" x="78" y="115">2</text><text class="suitname" x="45" y="99">JADE</text></g></g>
+  <g transform="translate(108 7)"><use href="#base"/><use href="#jade"/><g fill="#176c56"><text class="rank" x="12" y="23">3</text><text class="rank" x="78" y="115">3</text><text class="suitname" x="45" y="99">JADE</text></g></g>
+  <g transform="translate(206 7)"><use href="#base"/><use href="#jade"/><g fill="#176c56"><text class="rank" x="12" y="23">4</text><text class="rank" x="78" y="115">4</text><text class="suitname" x="45" y="99">JADE</text></g></g>
+  <g transform="translate(304 7)"><use href="#base"/><use href="#jade"/><g fill="#176c56"><text class="rank" x="12" y="23">5</text><text class="rank" x="78" y="115">5</text><text class="suitname" x="45" y="99">JADE</text></g></g>
+  <g transform="translate(402 7)"><use href="#base"/><use href="#jade"/><g fill="#176c56"><text class="rank" x="12" y="23">6</text><text class="rank" x="78" y="115">6</text><text class="suitname" x="45" y="99">JADE</text></g></g>
+  <g transform="translate(500 7)"><use href="#base"/><use href="#jade"/><g fill="#176c56"><text class="rank" x="12" y="23">7</text><text class="rank" x="78" y="115">7</text><text class="suitname" x="45" y="99">JADE</text></g></g>
+  <g transform="translate(598 7)"><use href="#base"/><use href="#jade"/><g fill="#176c56"><text class="rank" x="12" y="23">8</text><text class="rank" x="78" y="115">8</text><text class="suitname" x="45" y="99">JADE</text></g></g>
+  <g transform="translate(696 7)"><use href="#base"/><use href="#jade"/><g fill="#176c56"><text class="rank" x="12" y="23">9</text><text class="rank" x="78" y="115">9</text><text class="suitname" x="45" y="99">JADE</text></g></g>
+  <g transform="translate(794 7)"><use href="#base"/><use href="#jade"/><g fill="#176c56"><text class="rank" x="12" y="23">10</text><text class="rank" x="78" y="115">10</text><text class="suitname" x="45" y="99">JADE</text></g></g>
+  <g transform="translate(892 7)"><use href="#base"/><use href="#jade"/><g fill="#176c56"><text class="rank" x="12" y="23">J</text><text class="rank" x="78" y="115">J</text><text class="suitname" x="45" y="99">JADE</text></g></g>
+  <g transform="translate(990 7)"><use href="#base"/><use href="#jade"/><g fill="#176c56"><text class="rank" x="12" y="23">Q</text><text class="rank" x="78" y="115">Q</text><text class="suitname" x="45" y="99">JADE</text></g></g>
+  <g transform="translate(1088 7)"><use href="#base"/><use href="#jade"/><g fill="#176c56"><text class="rank" x="12" y="23">K</text><text class="rank" x="78" y="115">K</text><text class="suitname" x="45" y="99">JADE</text></g></g>
+  <g transform="translate(1186 7)"><use href="#base"/><use href="#jade"/><g fill="#176c56"><text class="rank" x="12" y="23">A</text><text class="rank" x="78" y="115">A</text><text class="suitname" x="45" y="99">JADE</text></g></g>
+
+  <!-- Pagoda: 2 through Ace -->
+  <g transform="translate(10 150)"><use href="#base"/><use href="#pagoda"/><g fill="#31558f"><text class="rank" x="12" y="23">2</text><text class="rank" x="78" y="115">2</text><text class="suitname" x="45" y="99">PAGODA</text></g></g>
+  <g transform="translate(108 150)"><use href="#base"/><use href="#pagoda"/><g fill="#31558f"><text class="rank" x="12" y="23">3</text><text class="rank" x="78" y="115">3</text><text class="suitname" x="45" y="99">PAGODA</text></g></g>
+  <g transform="translate(206 150)"><use href="#base"/><use href="#pagoda"/><g fill="#31558f"><text class="rank" x="12" y="23">4</text><text class="rank" x="78" y="115">4</text><text class="suitname" x="45" y="99">PAGODA</text></g></g>
+  <g transform="translate(304 150)"><use href="#base"/><use href="#pagoda"/><g fill="#31558f"><text class="rank" x="12" y="23">5</text><text class="rank" x="78" y="115">5</text><text class="suitname" x="45" y="99">PAGODA</text></g></g>
+  <g transform="translate(402 150)"><use href="#base"/><use href="#pagoda"/><g fill="#31558f"><text class="rank" x="12" y="23">6</text><text class="rank" x="78" y="115">6</text><text class="suitname" x="45" y="99">PAGODA</text></g></g>
+  <g transform="translate(500 150)"><use href="#base"/><use href="#pagoda"/><g fill="#31558f"><text class="rank" x="12" y="23">7</text><text class="rank" x="78" y="115">7</text><text class="suitname" x="45" y="99">PAGODA</text></g></g>
+  <g transform="translate(598 150)"><use href="#base"/><use href="#pagoda"/><g fill="#31558f"><text class="rank" x="12" y="23">8</text><text class="rank" x="78" y="115">8</text><text class="suitname" x="45" y="99">PAGODA</text></g></g>
+  <g transform="translate(696 150)"><use href="#base"/><use href="#pagoda"/><g fill="#31558f"><text class="rank" x="12" y="23">9</text><text class="rank" x="78" y="115">9</text><text class="suitname" x="45" y="99">PAGODA</text></g></g>
+  <g transform="translate(794 150)"><use href="#base"/><use href="#pagoda"/><g fill="#31558f"><text class="rank" x="12" y="23">10</text><text class="rank" x="78" y="115">10</text><text class="suitname" x="45" y="99">PAGODA</text></g></g>
+  <g transform="translate(892 150)"><use href="#base"/><use href="#pagoda"/><g fill="#31558f"><text class="rank" x="12" y="23">J</text><text class="rank" x="78" y="115">J</text><text class="suitname" x="45" y="99">PAGODA</text></g></g>
+  <g transform="translate(990 150)"><use href="#base"/><use href="#pagoda"/><g fill="#31558f"><text class="rank" x="12" y="23">Q</text><text class="rank" x="78" y="115">Q</text><text class="suitname" x="45" y="99">PAGODA</text></g></g>
+  <g transform="translate(1088 150)"><use href="#base"/><use href="#pagoda"/><g fill="#31558f"><text class="rank" x="12" y="23">K</text><text class="rank" x="78" y="115">K</text><text class="suitname" x="45" y="99">PAGODA</text></g></g>
+  <g transform="translate(1186 150)"><use href="#base"/><use href="#pagoda"/><g fill="#31558f"><text class="rank" x="12" y="23">A</text><text class="rank" x="78" y="115">A</text><text class="suitname" x="45" y="99">PAGODA</text></g></g>
+
+  <!-- Star: 2 through Ace -->
+  <g transform="translate(10 293)"><use href="#base"/><use href="#star"/><g fill="#9a3742"><text class="rank" x="12" y="23">2</text><text class="rank" x="78" y="115">2</text><text class="suitname" x="45" y="99">STAR</text></g></g>
+  <g transform="translate(108 293)"><use href="#base"/><use href="#star"/><g fill="#9a3742"><text class="rank" x="12" y="23">3</text><text class="rank" x="78" y="115">3</text><text class="suitname" x="45" y="99">STAR</text></g></g>
+  <g transform="translate(206 293)"><use href="#base"/><use href="#star"/><g fill="#9a3742"><text class="rank" x="12" y="23">4</text><text class="rank" x="78" y="115">4</text><text class="suitname" x="45" y="99">STAR</text></g></g>
+  <g transform="translate(304 293)"><use href="#base"/><use href="#star"/><g fill="#9a3742"><text class="rank" x="12" y="23">5</text><text class="rank" x="78" y="115">5</text><text class="suitname" x="45" y="99">STAR</text></g></g>
+  <g transform="translate(402 293)"><use href="#base"/><use href="#star"/><g fill="#9a3742"><text class="rank" x="12" y="23">6</text><text class="rank" x="78" y="115">6</text><text class="suitname" x="45" y="99">STAR</text></g></g>
+  <g transform="translate(500 293)"><use href="#base"/><use href="#star"/><g fill="#9a3742"><text class="rank" x="12" y="23">7</text><text class="rank" x="78" y="115">7</text><text class="suitname" x="45" y="99">STAR</text></g></g>
+  <g transform="translate(598 293)"><use href="#base"/><use href="#star"/><g fill="#9a3742"><text class="rank" x="12" y="23">8</text><text class="rank" x="78" y="115">8</text><text class="suitname" x="45" y="99">STAR</text></g></g>
+  <g transform="translate(696 293)"><use href="#base"/><use href="#star"/><g fill="#9a3742"><text class="rank" x="12" y="23">9</text><text class="rank" x="78" y="115">9</text><text class="suitname" x="45" y="99">STAR</text></g></g>
+  <g transform="translate(794 293)"><use href="#base"/><use href="#star"/><g fill="#9a3742"><text class="rank" x="12" y="23">10</text><text class="rank" x="78" y="115">10</text><text class="suitname" x="45" y="99">STAR</text></g></g>
+  <g transform="translate(892 293)"><use href="#base"/><use href="#star"/><g fill="#9a3742"><text class="rank" x="12" y="23">J</text><text class="rank" x="78" y="115">J</text><text class="suitname" x="45" y="99">STAR</text></g></g>
+  <g transform="translate(990 293)"><use href="#base"/><use href="#star"/><g fill="#9a3742"><text class="rank" x="12" y="23">Q</text><text class="rank" x="78" y="115">Q</text><text class="suitname" x="45" y="99">STAR</text></g></g>
+  <g transform="translate(1088 293)"><use href="#base"/><use href="#star"/><g fill="#9a3742"><text class="rank" x="12" y="23">K</text><text class="rank" x="78" y="115">K</text><text class="suitname" x="45" y="99">STAR</text></g></g>
+  <g transform="translate(1186 293)"><use href="#base"/><use href="#star"/><g fill="#9a3742"><text class="rank" x="12" y="23">A</text><text class="rank" x="78" y="115">A</text><text class="suitname" x="45" y="99">STAR</text></g></g>
+
+  <!-- Sword: 2 through Ace -->
+  <g transform="translate(10 436)"><use href="#base"/><use href="#sword"/><g fill="#252b30"><text class="rank" x="12" y="23">2</text><text class="rank" x="78" y="115">2</text><text class="suitname" x="45" y="99">SWORD</text></g></g>
+  <g transform="translate(108 436)"><use href="#base"/><use href="#sword"/><g fill="#252b30"><text class="rank" x="12" y="23">3</text><text class="rank" x="78" y="115">3</text><text class="suitname" x="45" y="99">SWORD</text></g></g>
+  <g transform="translate(206 436)"><use href="#base"/><use href="#sword"/><g fill="#252b30"><text class="rank" x="12" y="23">4</text><text class="rank" x="78" y="115">4</text><text class="suitname" x="45" y="99">SWORD</text></g></g>
+  <g transform="translate(304 436)"><use href="#base"/><use href="#sword"/><g fill="#252b30"><text class="rank" x="12" y="23">5</text><text class="rank" x="78" y="115">5</text><text class="suitname" x="45" y="99">SWORD</text></g></g>
+  <g transform="translate(402 436)"><use href="#base"/><use href="#sword"/><g fill="#252b30"><text class="rank" x="12" y="23">6</text><text class="rank" x="78" y="115">6</text><text class="suitname" x="45" y="99">SWORD</text></g></g>
+  <g transform="translate(500 436)"><use href="#base"/><use href="#sword"/><g fill="#252b30"><text class="rank" x="12" y="23">7</text><text class="rank" x="78" y="115">7</text><text class="suitname" x="45" y="99">SWORD</text></g></g>
+  <g transform="translate(598 436)"><use href="#base"/><use href="#sword"/><g fill="#252b30"><text class="rank" x="12" y="23">8</text><text class="rank" x="78" y="115">8</text><text class="suitname" x="45" y="99">SWORD</text></g></g>
+  <g transform="translate(696 436)"><use href="#base"/><use href="#sword"/><g fill="#252b30"><text class="rank" x="12" y="23">9</text><text class="rank" x="78" y="115">9</text><text class="suitname" x="45" y="99">SWORD</text></g></g>
+  <g transform="translate(794 436)"><use href="#base"/><use href="#sword"/><g fill="#252b30"><text class="rank" x="12" y="23">10</text><text class="rank" x="78" y="115">10</text><text class="suitname" x="45" y="99">SWORD</text></g></g>
+  <g transform="translate(892 436)"><use href="#base"/><use href="#sword"/><g fill="#252b30"><text class="rank" x="12" y="23">J</text><text class="rank" x="78" y="115">J</text><text class="suitname" x="45" y="99">SWORD</text></g></g>
+  <g transform="translate(990 436)"><use href="#base"/><use href="#sword"/><g fill="#252b30"><text class="rank" x="12" y="23">Q</text><text class="rank" x="78" y="115">Q</text><text class="suitname" x="45" y="99">SWORD</text></g></g>
+  <g transform="translate(1088 436)"><use href="#base"/><use href="#sword"/><g fill="#252b30"><text class="rank" x="12" y="23">K</text><text class="rank" x="78" y="115">K</text><text class="suitname" x="45" y="99">SWORD</text></g></g>
+  <g transform="translate(1186 436)"><use href="#base"/><use href="#sword"/><g fill="#252b30"><text class="rank" x="12" y="23">A</text><text class="rank" x="78" y="115">A</text><text class="suitname" x="45" y="99">SWORD</text></g></g>
+
+  <!-- The four distinct special cards occupy the first four cells of row 5. -->
+  <g transform="translate(10 579)"><use href="#base"/><use href="#mahjong"/><text class="special-title" x="45" y="108" fill="#2b6d5d">MAHJONG</text><text class="special-note" x="45" y="117" fill="#7f6133">ONE · WISH</text></g>
+  <g transform="translate(108 579)"><use href="#base"/><use href="#dog"/><text class="special-title" x="45" y="108" fill="#7b4b27">DOG</text><text class="special-note" x="45" y="117" fill="#7f6133">TO PARTNER</text></g>
+  <g transform="translate(206 579)"><use href="#base"/><use href="#phoenix"/><text class="special-title" x="45" y="108" fill="#a54138">PHOENIX</text><text class="special-note" x="45" y="117" fill="#7f6133">WILD · −25</text></g>
+  <g transform="translate(304 579)"><use href="#base"/><use href="#dragon"/><text class="special-title" x="45" y="108" fill="#387660">DRAGON</text><text class="special-note" x="45" y="117" fill="#7f6133">HIGH · +25</text></g>
+</svg>

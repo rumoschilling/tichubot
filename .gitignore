@@ -1,0 +1,68 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+*.eggs/
+
+# Checkpoints & model weights (large binary files)
+checkpoints/
+checkpoints_embed
+checkpoints_fixed_old
+checkpoints_history
+kagglecheckpoints/
+
+# Kaggle bundles (generated, contain base64-encoded archives)
+kaggle/monster_gpu_bundle/
+kaggle/standard_embed_gpu_bundle/
+kaggle/standard_gpu_bundle/
+kaggle/test_gpu_bundle/
+kaggle/tiny_history_model/
+kaggle/tiny_history_run_dataset/
+kaggle/v4_async_bundle/
+kaggle/v4_fresh_bundle/
+kaggle/tpu_probe_bundle/
+kaggle/architecture_runtime_bundle/
+kaggle/compact_scratch_bundle/
+kaggle/optimizer_batch_sweep_bundle/
+kaggle/optimizer_runtime_bundle/
+kaggle/replay_age_bundle/
+
+# Downloaded build inputs and large raw evaluation dumps
+distribution/windows/.cache/
+local_evaluations/*_raw.npz
+
+# Kaggle run state & outputs
+kaggle/.runs/
+kaggle_runs/
+
+# Logs
+logs/
+*.log
+
+# Editor / OS
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Environment
+.env
+.venv/
+rl_env/
+
+# Test artifacts
+test_monitor.csv
+
+# llm_play harness session state
+.llm_play/
+
+# Ring league checkpoints
+ring_runs/
+
+# Saturation probe state bank (large; records/ are committed)
+local_evaluations/saturation/bank_*.pkl

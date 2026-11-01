@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  TichuBot card back. Drawn for this project from plain geometric shapes
+  (no scans, logos or publisher artwork); licensed with the repository
+  under CC BY-NC 4.0. Portrait 2:3, legible down to the ~17x25px backs
+  shown beside each seat.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="300" viewBox="0 0 200 300">
+  <defs>
+    <pattern id="lattice" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M10 0 L20 10 L10 20 L0 10 Z" fill="none" stroke="#1f4a7a" stroke-width="1.2"/>
+      <circle cx="10" cy="10" r="1.6" fill="#c9a24c" opacity=".55"/>
+    </pattern>
+    <radialGradient id="glow" cx="50%" cy="50%" r="60%">
+      <stop offset="0" stop-color="#16406e"/>
+      <stop offset="1" stop-color="#0a2445"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="200" height="300" rx="14" fill="#0a2445"/>
+  <rect x="10" y="10" width="180" height="280" rx="9" fill="url(#glow)"/>
+  <rect x="10" y="10" width="180" height="280" rx="9" fill="url(#lattice)"/>
+  <rect x="10" y="10" width="180" height="280" rx="9" fill="none" stroke="#d6b763" stroke-width="3"/>
+  <rect x="17" y="17" width="166" height="266" rx="6" fill="none" stroke="#d6b763" stroke-width="1"/>
+
+  <!-- central medallion: a gold ring holding an eight-petal rosette -->
+  <g transform="translate(100 150)">
+    <circle r="54" fill="#0a2445" stroke="#d6b763" stroke-width="3"/>
+    <circle r="47" fill="none" stroke="#d6b763" stroke-width="1"/>
+    <g id="petal-pair" fill="#d6b763" stroke="#0a2445" stroke-width="1.5">
+      <path d="M0 -6 Q13 -22 0 -42 Q-13 -22 0 -6 Z"/>
+      <path d="M0 6 Q13 22 0 42 Q-13 22 0 6 Z"/>
+    </g>
+    <use href="#petal-pair" transform="rotate(45)"/>
+    <use href="#petal-pair" transform="rotate(90)"/>
+    <use href="#petal-pair" transform="rotate(135)"/>
+    <circle r="10" fill="#b3261e" stroke="#e8cf86" stroke-width="2.5"/>
+  </g>
+
+  <!-- small diamonds at the ends of the long axis -->
+  <g fill="#d6b763">
+    <path d="M100 36 L109 48 L100 60 L91 48 Z"/>
+    <path d="M100 240 L109 252 L100 264 L91 252 Z"/>
+  </g>
+</svg>

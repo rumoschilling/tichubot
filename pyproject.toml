@@ -1,0 +1,37 @@
+[project]
+name = "tichubot"
+version = "0.1.0"
+description = "Tichu card game AI trained with PPO self-play"
+requires-python = ">=3.10"
+dependencies = [
+    "torch>=2.0",
+    "pettingzoo>=1.24",
+    "stable-baselines3>=2.0",
+    "supersuit>=3.9",
+    "gymnasium>=0.29",
+    "numpy>=1.24",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov",
+]
+
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["training", "tichu_env"]
+
+[tool.setuptools.package-data]
+training = [
+    "best_checkpoint.json",
+    "web_static/*",
+    "web_static/assets/*",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

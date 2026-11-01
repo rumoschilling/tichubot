@@ -1,0 +1,12 @@
+# Offline update path for an already-built Wine 8 builder image. This avoids
+# re-resolving the Debian base image when only the Windows NumPy runtime needs
+# the compatibility pin used by the full Dockerfile.
+FROM tichubot-windows-builder:latest
+
+COPY .cache/numpy-1.26.4-cp311-cp311-win_amd64.whl /tmp/numpy-1.26.4-cp311-cp311-win_amd64.whl
+RUN xvfb-run -a wine C:\\Python311\\python.exe -m pip install --no-cache-dir --force-reinstall \
+        'Z:\tmp\numpy-1.26.4-cp311-cp311-win_amd64.whl' \
+    && rm /tmp/numpy-1.26.4-cp311-cp311-win_amd64.whl
+
+COPY entrypoint.sh /usr/local/bin/tichubot-windows-build
+RUN chmod +x /usr/local/bin/tichubot-windows-build

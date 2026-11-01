@@ -1,0 +1,2 @@
+# PyTorch is installed separately by start-tichubot.sh from its CPU-only index.
+numpy>=1.24,<3
