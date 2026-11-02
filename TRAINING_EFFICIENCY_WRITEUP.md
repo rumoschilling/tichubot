@@ -224,10 +224,13 @@ Result:
 
 ## Deferred audit findings
 
-These were observed but intentionally not mixed into this change:
+These were observed but intentionally not mixed into this change. Status
+checked 2026-11-02: all of them still apply as written, except that AMP now
+exists as an option.
 
 - Transformer gradient checkpointing measured about 26% overhead locally.
-- The standard T4 bundle does not yet enable AMP.
+- AMP is implemented as an opt-in flag (`--use-amp`) but is off by default
+  and not used by any launcher; no measured comparison has been made.
 - Async timing reports wait time rather than full collection wall time, and
   some rollout profile totals double-count nested phases.
 - Periodic checkpoints are serialized twice and all numbered snapshots are

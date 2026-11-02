@@ -2,10 +2,21 @@
 
 Date: 2026-08-12
 
-Implementation update: the nonlinear action key encoder described below was
-added later on 2026-08-12. The query-key dot product was deliberately retained.
-The optimizer batching, Phoenix action semantics, and history-event omissions
-remain unchanged.
+Status, checked 2026-11-02:
+
+- **Nonlinear action keys: done** (2026-08-12). The query-key dot product was
+  deliberately retained.
+- **Phoenix action semantics: done** (August 2026). Ambiguous Phoenix plays
+  are two legal actions told apart by a `phoenix_high` bit (58-wide action
+  vector); see the expressivity section below.
+- **Optimizer batching: done** (2026-08-12). `--optimizer-batch-size` steps
+  Adam on fixed-size batches instead of once per rollout; the compact runs
+  since 2026-08-13, including the one behind the released model, use 2,048
+  transitions per step with a 512-transition memory microbatch. The value was chosen on measured runtime. The controlled
+  learning comparison proposed below was never run as a clean A/B.
+- **History-event omissions: still open.** The history tokens still lack the
+  resolved Dragon recipient, fulfilled wish, resolved Phoenix role and
+  first-eight/last-six deal provenance.
 
 ## Bottom line
 

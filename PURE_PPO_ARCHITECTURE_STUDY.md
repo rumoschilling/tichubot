@@ -2,6 +2,15 @@
 
 Date: 2026-08-03 to 2026-08-04
 
+**Status, checked 2026-11-02:** the observer-conditioned event-memory model
+recommended here has not been built; this remains a design study. Two of the
+three limitations below were later reduced by smaller changes to the existing
+model: the action score is no longer additive over cards (nonlinear action-key
+encoder, 2026-08-12), and history pooling is now conditioned on the current
+state (`--static-attention`), with separate actor and critic history pooling
+(`--split-actor-critic-history`). The pooled history is still shared by every
+legal action, and the history tokens are still not information-complete.
+
 ## Executive decision
 
 A substantially stronger pure-PPO play model is worth testing before adding

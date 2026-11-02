@@ -5,6 +5,15 @@ uncommitted and untracked source. Existing changes were preserved. The
 findings below describe the original failures; remediation status is tracked
 separately so the original reproduction evidence remains available.
 
+**Status, checked 2026-11-02: every finding in this report is fixed.** The
+fixes were committed on 2026-10-15 (commit `c3bf2f5`). Each of the 20
+original findings (T1–T4, D1–D4, I1–I5, R1–R7) names its regression test;
+all of them pass on the committed code, and the game-engine reproductions
+quoted below (R1, R2, R6) were re-run and now behave correctly. The 13
+follow-up fixes are described in their own tables, and the full test suite
+passes. The finding texts describe the failures as they were found on
+2026-09-23; "Original suggestion" is the fix proposed at the time.
+
 All 20 initial grouped findings below were addressed in the working tree after
 the user requested fixes. Three follow-up passes fixed thirteen additional defects. The original findings and reproductions are retained
 as audit evidence. P1 denotes high priority; P2 normal priority; P3 low.
@@ -38,8 +47,7 @@ The history feature scale remains unchanged. Rule corrections change the set
 of legal plays, so historical strength measurements should not be treated as
 results under the corrected engine without rerunning their controlled comparisons.
 No training, checkpoint-strength evaluation, remote Kaggle execution, native
-desktop build, or live browser test was performed during remediation. Existing
-unrelated edits and checkpoints were preserved. Changes remain uncommitted.
+desktop build, or live browser test was performed during remediation.
 
 ## Follow-up remediation — 2026-09-23
 
@@ -66,8 +74,7 @@ git diff --check
 
 Result: **380 passed, 1 skipped in 13.45 seconds**; diff check clean. The skip
 still requires unavailable CUDA. No training, model-strength evaluation, remote
-execution, or live browser/server test was performed. All changes remain
-uncommitted, with existing unrelated work preserved.
+execution, or live browser/server test was performed.
 
 ## Passing-worker and pending-decision follow-up — 2026-09-23
 
@@ -96,7 +103,7 @@ git diff --check
 
 Result: **388 passed, 1 skipped in 14.30 seconds**; diff check clean. CUDA remains
 unavailable. No training, checkpoint-strength experiment, remote execution, or
-live browser test was run. Changes remain uncommitted.
+live browser test was run.
 
 ## Dragon scoring and interface-state follow-up — 2026-09-23
 
@@ -122,8 +129,7 @@ git diff --check
 
 Result: **394 passed, 1 skipped in 14.51 seconds**; diff check clean. CUDA is
 unavailable. No training, checkpoint-strength evaluation, remote execution,
-or live browser test was run. Existing unrelated work is preserved and changes
-remain uncommitted.
+or live browser test was run.
 
 ## Review allocation
 
@@ -156,7 +162,9 @@ GPU execution and native Windows/macOS installation were not exercised.
 
 ## Confirmed training findings
 
-### T1 — P2: CPU asynchronous dispatch does not snapshot model weights
+### T1 — P2: CPU asynchronous dispatch does not snapshot model weights — fixed
+
+**Status: fixed** (committed 2026-10-15). Regression test: `tests/test_worker_checkpoint_compatibility.py::test_async_dispatch_freezes_all_three_policy_snapshots`.
 
 Location: `training/rollout_history.py:1188` (also the GT and passing weights
 at lines 1193 and 1196).
@@ -173,10 +181,12 @@ parameter under `torch.no_grad()`. `np.shares_memory` reports `True`, and
 the already-queued weight array changes. This establishes the alias; the
 frequency of the scheduling race in real training was not measured.
 
-Suggested fix: copy each CPU NumPy weight array before submitting work,
+Original suggestion: copy each CPU NumPy weight array before submitting work,
 including the specialist policies. Add a dispatch-isolation regression test.
 
-### T2 — P2: History workers cannot reconstruct supported specialist shapes
+### T2 — P2: History workers cannot reconstruct supported specialist shapes — fixed
+
+**Status: fixed** (committed 2026-10-15). Regression test: `tests/test_worker_checkpoint_compatibility.py::test_history_worker_restores_specialist_shapes_and_legacy_wish_head`.
 
 Locations: `training/rollout_history.py:1091`, `:1104`, and `:1114`.
 
@@ -194,11 +204,13 @@ mocked so no games were played:
 - Passing width 64: checkpoint `[64, 60]` versus worker `[128, 60]` mismatch.
 - Legacy wish head: checkpoint `[13, 32]` versus worker `[14, 32]` mismatch.
 
-Suggested fix: pass the specialist architecture configuration to workers
+Original suggestion: pass the specialist architecture configuration to workers
 and include it in cache identities; apply the same wish-head compatibility
 handling as the parent before loading weights.
 
-### T3 — P2: Embed resume restores classifier moments into a new GT head
+### T3 — P2: Embed resume restores classifier moments into a new GT head — fixed
+
+**Status: fixed** (committed 2026-10-15). Regression test: `tests/test_worker_checkpoint_compatibility.py::test_embed_load_restores_gt_moments_only_for_matching_head`.
 
 Location: `training/train_embed.py:86`.
 
@@ -214,10 +226,12 @@ Reproduction: save a synthetic legacy classifier checkpoint with an Adam
 The loaded GT policy reports `migrated_from_classifier=True`, while the new
 `adv_head.bias` has the stale `exp_avg=[9.0]`. No optimization was run.
 
-Suggested fix: skip GT optimizer restoration when
+Original suggestion: skip GT optimizer restoration when
 `gt_policy.migrated_from_classifier` is true, matching history resume.
 
-### T4 — P2: Fixed-head workers ignore architecture and device
+### T4 — P2: Fixed-head workers ignore architecture and device — fixed
+
+**Status: fixed** (committed 2026-10-15). Regression test: `tests/test_worker_checkpoint_compatibility.py::test_fixed_worker_restores_custom_architecture_on_requested_device`.
 
 Location: `training/rollout.py:173`.
 
@@ -231,12 +245,14 @@ The architecture failure was reproduced with a 16-wide, one-layer policy:
 `_worker_collect` raised missing-key/size-mismatch errors. The device problem
 is established by inspection; no CUDA execution was performed.
 
-Suggested fix: transmit the policy architecture and construct the worker
+Original suggestion: transmit the policy architecture and construct the worker
 with it, then move the model to the requested device before collection.
 
 ## Confirmed distribution findings
 
-### D1 — P1: Lightweight source bundles omit a required runtime module
+### D1 — P1: Lightweight source bundles omit a required runtime module — fixed
+
+**Status: fixed** (committed 2026-10-15). Regression test: `tests/test_lightweight_distribution.py::test_staged_runtime_imports_browser_application`.
 
 Location: `distribution/source_bundle.py:29` (`RUNTIME_FILES`).
 
@@ -247,9 +263,11 @@ with `ModuleNotFoundError: No module named 'training.observations'`. The
 mandatory smoke test therefore aborts Linux, macOS, and Windows source ZIP
 builds. Existing bundle tests mock the builders and miss the real import graph.
 
-Suggested fix: include the module and test importing the actual staged runtime.
+Original suggestion: include the module and test importing the actual staged runtime.
 
-### D2 — P1: Python packaging names a nonexistent build backend
+### D2 — P1: Python packaging names a nonexistent build backend — fixed
+
+**Status: fixed** (committed 2026-10-15). Regression test: `tests/test_packaging.py::test_offline_wheel_contains_runtime_packages_and_browser_assets` (`pyproject.toml` now uses `setuptools.build_meta`).
 
 Location: `pyproject.toml:23`.
 
@@ -258,11 +276,13 @@ that module with the project's interpreter and setuptools 70.2.0 raises
 `ModuleNotFoundError: No module named 'setuptools.backends'`. Packaging tools
 cannot load this backend to obtain build metadata or build the package.
 
-Suggested fix: use the real setuptools backend (`setuptools.build_meta`, or
+Original suggestion: use the real setuptools backend (`setuptools.build_meta`, or
 its `__legacy__` backend where appropriate), then verify package discovery
 and included runtime assets. This audit did not build a wheel or install it.
 
-### D3 — P2: Checkpoint-dependent Kaggle workflows permit missing input
+### D3 — P2: Checkpoint-dependent Kaggle workflows permit missing input — fixed
+
+**Status: fixed** (committed 2026-10-15). Regression test: `tests/test_kaggle_bundle_profiles.py::test_checkpoint_dependent_bundle_rejects_missing_resume_before_work` (Kaggle tooling is not part of the public repository).
 
 Locations: `kaggle/run.sh:33`,
 `kaggle/prepare_optimizer_batch_sweep_bundle.py:89`,
@@ -275,10 +295,12 @@ under `/kaggle/input`. With no checkpoint dataset attached, the remote run
 will fail its explicit zero-checkpoint check. This was traced through source;
 no kernel was pushed or executed.
 
-Suggested fix: validate required checkpoint input locally before preparation
+Original suggestion: validate required checkpoint input locally before preparation
 or upload, and document the required invocation for each workflow.
 
-### D4 — P3: Documented entry commands do not match this checkout's environment
+### D4 — P3: Documented entry commands do not match this checkout's environment — fixed
+
+**Status: fixed** (committed 2026-10-15). The README documents activating the environment, and the Kaggle launchers resolve the CLI from the configured environment (`$KAGGLE`). Documentation only, no test.
 
 Locations: `README.md:10`, `README.md:20`, `README.md:44`, and
 `kaggle/push_v4_fresh.sh:11`.
@@ -289,12 +311,14 @@ interpreter. The configured interpreter is
 calls bare `kaggle`, which is absent from the current PATH, while the CLI
 exists in that environment. These are environment-dependent entry failures.
 
-Suggested fix: document environment activation consistently and resolve the
+Original suggestion: document environment activation consistently and resolve the
 CLI from the configured environment, as the newer launchers already do.
 
 ## Confirmed interface findings
 
-### I1 — P1: A rejected advisor move can mutate the simulated hands
+### I1 — P1: A rejected advisor move can mutate the simulated hands — fixed
+
+**Status: fixed** (committed 2026-10-15). Regression test: `tests/test_advisor_input.py::test_force_play_rejection_is_transactional`.
 
 Location: `training/advisor.py:280` (`force_play`).
 
@@ -306,11 +330,13 @@ from `[{55}, {0,1,2}, {14}, {28}]` to
 `[{55}, {0,14,28}, {2}, {1}]`. A requested Tichu declaration can also persist
 after rejection because the game engine records it before validating cards.
 
-Suggested fix: validate/reconcile on a copy and commit only successful moves,
+Original suggestion: validate/reconcile on a copy and commit only successful moves,
 or restore the complete state when validation fails. Test rejection without
 any changes to hands, declarations, history, or provenance.
 
-### I2 — P2: Fixed-head policies crash advisor suggestions
+### I2 — P2: Fixed-head policies crash advisor suggestions — fixed
+
+**Status: fixed** (committed 2026-10-15). Regression test: `tests/test_advisor_input.py::test_fixed_policy_advisor_suggestions_unpack_forward_result`.
 
 Location: `training/advisor.py:635` (browser caller: `training/web.py:1647`).
 
@@ -319,10 +345,12 @@ to `logits` and then uses tensor indexing on that tuple. A direct call with
 `TichuPolicy` raises `TypeError: tuple indices must be integers or slices,
 not tuple`. Browser state generation uses the same helper on the human turn.
 
-Suggested fix: unpack `logits, _ = policy.forward(obs, mask)` and cover a
+Original suggestion: unpack `logits, _ = policy.forward(obs, mask)` and cover a
 fixed-head checkpoint in advisor/browser inference tests.
 
-### I3 — P2: The LLM play helper cannot infer with some accepted model types
+### I3 — P2: The LLM play helper cannot infer with some accepted model types — fixed
+
+**Status: fixed** (committed 2026-10-15). Regression test: `tests/test_play_replay.py::test_llm_play_supports_fixed_policy_inference`, `::test_llm_play_supports_counted_trick_points_policy` and `::test_llm_play_preserves_selected_phoenix_component`.
 
 Location: `llm_play.py:149` (`ai_play`).
 
@@ -333,10 +361,12 @@ but this helper always uses the embedding-policy call signature and a
 matrix-size error (`1x196` versus `200x256`). Its legal-action enumeration
 also predates explicit Phoenix policy choices.
 
-Suggested fix: reuse the model-aware action selection in `training.play`
+Original suggestion: reuse the model-aware action selection in `training.play`
 and `encode_policy_static`, preserving all components of the selected action.
 
-### I4 — P2: The top-level play CLI still treats actions as card lists
+### I4 — P2: The top-level play CLI still treats actions as card lists — fixed
+
+**Status: fixed** (committed 2026-10-15). Regression test: `tests/test_cli_play.py::test_random_cli_ai_handles_tuple_actions` and `::test_random_cli_human_action_display_handles_tuple_actions`.
 
 Locations: `play.py:96`, `play.py:166`, and `play.py:170`.
 
@@ -345,10 +375,12 @@ code passes the whole tuple to card helpers. A seeded direct run failed on
 its first display with `TypeError: '>=' not supported between instances of
 'list' and 'int'`.
 
-Suggested fix: unpack actions consistently, including human display and
+Original suggestion: unpack actions consistently, including human display and
 Mahjong checks, or redirect this entry point to the maintained play CLI.
 
-### I5 — P2: Advisor setup can contradict known Mahjong passing provenance
+### I5 — P2: Advisor setup can contradict known Mahjong passing provenance — fixed
+
+**Status: fixed** (committed 2026-10-15). Regression test: `tests/test_web.py::test_advisor_derives_mahjong_holder_from_own_directed_pass`.
 
 Locations: `training/web.py:791` and `training/advisor.py:744`.
 
@@ -358,12 +390,14 @@ reproduced Mahjong moving from P1 to P2 while the provenance still recorded
 that it was passed to P1. The approximate hands, opening player, and known
 passing information then disagree.
 
-Suggested fix: derive the holder from known outgoing provenance when possible,
+Original suggestion: derive the holder from known outgoing provenance when possible,
 or reject a conflicting answer before changing hands or the opening player.
 
 ## Confirmed game-engine findings
 
-### R1 — P1: Phoenix substitutions are missing from legal actions
+### R1 — P1: Phoenix substitutions are missing from legal actions — fixed
+
+**Status: fixed** (committed 2026-10-15). Regression test: `tests/test_game_state_validation.py::test_phoenix_can_replace_a_straight_rank_still_present_in_hand` and `::test_every_emitted_phoenix_action_executes_and_wish_filter_is_preserved`; both hands in the table below are generated by both action APIs.
 
 Locations: `tichu_env/game_state.py:1283` and `:1337`.
 
@@ -385,11 +419,13 @@ of 2s/3s with Phoenix replacing a retained 2. The reviewer also found omitted
 classified subsets in 23 of 100 sampled hands; this is an audit sample,
 not a prevalence estimate over gameplay.
 
-Suggested fix: enumerate substitutions within the chosen combination,
+Original suggestion: enumerate substitutions within the chosen combination,
 including ranks whose natural cards remain in the hand. Compare generated
 actions against classified subsets in focused completeness tests.
 
-### R2 — P1: Phoenix is accepted as Mahjong/rank 1
+### R2 — P1: Phoenix is accepted as Mahjong/rank 1 — fixed
+
+**Status: fixed** (committed 2026-10-15). Regression test: `tests/test_game_state_validation.py::test_phoenix_cannot_represent_mahjong_rank`; `[Mahjong, Phoenix]` no longer classifies as a pair and `GameState.play()` rejects it.
 
 Locations: `tichu_env/combinations.py:127`, `:212`, and `:345`.
 
@@ -400,10 +436,12 @@ accepts it. The publisher specifies substitution for normal cards; normal
 cards range from 2 through Ace. Thus representing Mahjong/rank 1 is outside
 that rule. See the [publisher's rulebook, pages 1–2](https://www.riograndegames.com/wp-content/uploads/2013/02/Tichu-Rules.pdf).
 
-Suggested fix: restrict substituted ranks to 2–14, require physical Mahjong
+Original suggestion: restrict substituted ranks to 2–14, require physical Mahjong
 for a straight beginning at 1, and reject special-card pairs/triples/steps.
 
-### R3 — P2: A Dragon gift does not advance the history trick counter
+### R3 — P2: A Dragon gift does not advance the history trick counter — fixed
+
+**Status: fixed** (committed 2026-10-15). Regression test: `tests/test_game_state_validation.py::test_dragon_gift_advances_history_trick_number`.
 
 Location: `tichu_env/game_state.py:706`; compare normal awards at `:493`.
 
@@ -412,10 +450,12 @@ The reviewer reproduced the Dragon trick and the following trick sharing
 ID 0, with play-log IDs `[0,0,0,0,0,0]`. History features therefore give
 different tricks the same index.
 
-Suggested fix: advance the history trick counter when resolving the gift,
+Original suggestion: advance the history trick counter when resolving the gift,
 consistent with ordinary trick completion.
 
-### R4 — P2: The PettingZoo wrapper skips Mahjong wishing
+### R4 — P2: The PettingZoo wrapper skips Mahjong wishing — fixed
+
+**Status: fixed** (committed 2026-10-15). Regression test: `tests/test_game_state_validation.py::test_pettingzoo_mahjong_play_opens_wish_decision`.
 
 Locations: `tichu_env/env.py:219` and `:226`.
 
@@ -424,10 +464,12 @@ checked against that outer tuple. Playing the generated `([52], False)`
 action left `_pending_wish=False` and immediately advanced to the next seat.
 The main session also confirmed this incorrect tuple membership by inspection.
 
-Suggested fix: unpack the card list before detecting Mahjong and verify the
+Original suggestion: unpack the card list before detecting Mahjong and verify the
 extra wishing turn through the public environment interface.
 
-### R5 — P2: Card-play APIs do not enforce the game phase
+### R5 — P2: Card-play APIs do not enforce the game phase — fixed
+
+**Status: fixed** (committed 2026-10-15). Regression test: `tests/test_game_state_validation.py::test_card_actions_are_rejected_outside_play_phase`.
 
 Locations: `tichu_env/game_state.py:528` and `:918`.
 
@@ -437,9 +479,11 @@ in `GRAND_TICHU`. The phase checks therefore allow direct callers to play
 before declarations and dealing are complete; the same missing guard applies
 to passing. Normal callers that respect phases avoid the problem.
 
-Suggested fix: require the play phase when generating/executing card plays.
+Original suggestion: require the play phase when generating/executing card plays.
 
-### R6 — P2: Invalid actions can commit declarations or duplicate cards
+### R6 — P2: Invalid actions can commit declarations or duplicate cards — fixed
+
+**Status: fixed** (committed 2026-10-15). Regression test: `tests/test_game_state_validation.py::test_duplicate_card_action_is_rejected_without_state_changes` and `::test_invalid_tichu_play_is_rejected_without_state_changes`.
 
 Locations: `tichu_env/game_state.py:535` and `:545`.
 
@@ -451,10 +495,12 @@ one physical five twice was accepted as a pair while removing only one card.
 These malformed actions are not emitted by the ordinary action generator,
 but can reach the direct/manual input APIs.
 
-Suggested fix: reject duplicate indices and validate the full action before
+Original suggestion: reject duplicate indices and validate the full action before
 committing its declaration, hand changes, or history.
 
-### R7 — P3: History observations can exceed their declared space bounds
+### R7 — P3: History observations can exceed their declared space bounds — fixed
+
+**Status: fixed** (committed 2026-10-15). Regression test: `tests/test_game_state_validation.py::test_history_observation_space_accepts_trick_indices_above_one`.
 
 Locations: `tichu_env/game_state.py:478` and `tichu_env/env.py:91`.
 
@@ -463,7 +509,7 @@ declares an upper bound of 1. The reviewer ran a deterministic singleton/pass
 game that reached 41 tricks and produced 1.64. Consumers validating against
 the advertised space can reject such observations.
 
-Suggested fix: normalize by a valid upper bound or widen the declared space.
+Original suggestion: normalize by a valid upper bound or widen the declared space.
 
 ## Verification limits by area
 
@@ -487,4 +533,4 @@ statistical correctness for every experiment module.
 
 The initial audit changed only this report. The subsequent authorized
 remediation changed source and tests as summarized above. All three Herdr
-reviewers have finished and remain available in their panes.
+reviewers finished.
